@@ -26,7 +26,7 @@
 			<!-- //admin-menu -->
 			
 			<div id="admin-content">
-				<form action="" method="post" >
+				<form action="${pageContext.request.contextPath}/${authUser.id}/update" method="post" enctype="multipart/form-data">
 	 		      	<table id="admin-basic">
 	 		      		<colgroup>
 							<col style="width: 100px;">
@@ -34,15 +34,17 @@
 						</colgroup>
 			      		<tr>
 			      			<td><label for="textTitle">블로그 제목</label></td>
-			      			<td><input id="textTitle" type="text" name="blogTitle" value="${authUser.userName}${blogVo.blogTitle}"></td>
+			      			<td><input id="textTitle" type="text" name="blogTitle" value="${blogVo.blogTitle}"></td>
 			      		</tr>
 			      		<tr>
 			      			<td><label>로고이미지</label></td>
+			      			<c:if test="">
+			      			</c:if>
 			      			<td class="text-left"><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>   
 			      		</tr>      		
 			      		<tr>
 			      			<td>&nbsp;</td>
-			      			<td><input id="textLogo" type="file" name="file"></td>      			
+			      			<td><input id="textLogo" type="file" name="file" value=""></td>      			
 			      		</tr>           		
 			      	</table>
 			      	<div id="btnArea">

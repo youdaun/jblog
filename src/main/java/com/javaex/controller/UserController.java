@@ -60,6 +60,7 @@ public class UserController {
 		
 	}
 	
+	//로그아웃
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		System.out.println("UserController>logout");

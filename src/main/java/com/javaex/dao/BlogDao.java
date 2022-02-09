@@ -16,5 +16,10 @@ public class BlogDao {
 		
 		return sqlSession.selectOne("jblog.select-blog", id);
 	}
+	
+	public void updateBlogInfo(BlogVo blogVo) {
+		
+		sqlSession.update("jblog.update-blog", blogVo);
+	}
 
 }
