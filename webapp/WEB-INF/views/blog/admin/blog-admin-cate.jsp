@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>JBlog</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
 
 </head>
 
@@ -15,13 +15,13 @@
 	<div id="wrap">
 		
 		<!-- 개인블로그 해더 -->
-
+		<c:import url="/WEB-INF/views/includes/blog-header.jsp"></c:import>
 
 		<div id="content">
 			<ul id="admin-menu" class="clearfix">
-				<li class="tabbtn selected"><a href="">기본설정</a></li>
-				<li class="tabbtn"><a href="">카테고리</a></li>
-				<li class="tabbtn"><a href="">글작성</a></li>
+				<li class="tabbtn selected"><a href="${pageContext.request.contextPath}/${id}/admin/basic">기본설정</a></li>
+				<li class="tabbtn"><a href="${pageContext.request.contextPath}/${id}/admin/category">카테고리</a></li>
+				<li class="tabbtn"><a href="${pageContext.request.contextPath}/${id}/admin/writeForm">글작성</a></li>
 			</ul>
 			<!-- //admin-menu -->
 			
@@ -46,25 +46,7 @@
 		      		</thead>
 		      		<tbody id="cateList">
 		      			<!-- 리스트 영역 -->
-		      			<tr>
-							<td>1</td>
-							<td>자바프로그래밍</td>
-							<td>7</td>
-							<td>자바기초와 객체지향</td>
-						    <td class='text-center'>
-						    	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
-						    </td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>오라클</td>
-							<td>5</td>
-							<td>오라클 설치와 sql문</td>
-						    <td class='text-center'>
-						    	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
-						    </td>
-						</tr>
-						<!-- 리스트 영역 -->
+		      			
 					</tbody>
 				</table>
       	
@@ -82,6 +64,8 @@
 		      			<td><input type="text" name="desc"></td>
 		      		</tr>
 		      	</table> 
+		      	
+		      	<input type="hidden" id="cateId" value="${id}">
 			
 				<div id="btnArea">
 		      		<button id="btnAddCate" class="btn_l" type="submit" >카테고리추가</button>
@@ -94,12 +78,118 @@
 		
 		
 		<!-- 개인블로그 푸터 -->
-		
+		<c:import url="/WEB-INF/views/includes/blog-footer.jsp"></c:import>
 	
 	
 	</div>
 	<!-- //wrap -->
 </body>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+		//리스트 그리기
+		fetchList();
+	
+	});
+	
+	//카테고리 추가 버튼 눌렀을때
+	$("#btnAddCate").on("click", function(){
+		
+		var cateName = $("[name='name']").val();
+		var desc = $("[name='desc']").val();
+		var id = $("#cateId").val();
+		
+		var categoryVo = {
+			cateName: cateName, 
+			description: desc,
+			id: id
+		};
+		
+		$.ajax({
+			
+			url : "${pageContext.request.contextPath }/category/add",		
+			type : "post",
+			//contentType : "application/json",
+			data : categoryVo,
+
+			//dataType : "json",
+			success : function(categoryVo){
+				/*성공시 처리해야될 코드 작성*/
+				render(categoryVo, "down");
+				
+				var cateName = $("[name='name']").val("");
+				var desc = $("[name='desc']").val("");
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+
+		
+	});
+
+	//리스트 출력
+	function fetchList() {
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/category/list",
+			type : "post",
+			//contentType : "application/json",
+			//data : {name: "홍길동"},
+
+			dataType : "json",
+			success : function(cateList) {
+				/*성공시 처리해야될 코드 작성*/
+				console.log(cateList);
+
+				for (var i = 0; i < cateList.length; i++) {
+					render(cateList[i], "down"); //방명록리스트 그리기
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	}
+	
+	//리스트 그리기
+	function render(categoryVo, updown) {
+		
+		console.log(categoryVo);
+		
+		var str = '';
+		str += '<tr>';
+		str += '	<td>'+categoryVo.cateNo+'</td>';
+		str += '	<td>'+categoryVo.cateName+'</td>';
+		str += '	<td>'+categoryVo.id+'</td>';
+		str += '	<td>'+categoryVo.description+'</td>';
+		str += '	<td class=' + 'text-center'+ '> ';
+		str += '	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">';
+		str += '	</td>';
+		str += '</tr>';
+ 
+		if(updown == 'down'){
+			$("#cateList").prepend(str);
+		} else {
+			$("#cateList").append(str);
+		}
+	
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

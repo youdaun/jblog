@@ -1,5 +1,7 @@
 package com.javaex.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.BlogService;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.CategoryVo;
 
 @Controller
 public class BlogController {
@@ -49,11 +53,48 @@ public class BlogController {
 	}
 	
 	@RequestMapping("/{id}/admin/category")
-	public String category() {
+	public String category(@PathVariable String id, Model model) {
 		System.out.println("BlogController>category");
 		
+		BlogVo blogVo = blogService.getBlogInfo(id);
+		model.addAttribute("blogVo", blogVo);
+
 		return "blog/admin/blog-admin-cate";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/category/list")
+	public List<CategoryVo> cateList(Model model){
+		System.out.println("BlogController>cateList");
+		
+		List<CategoryVo> cateList = blogService.getCateList();
+		
+		return cateList;
+	}
+
+	@ResponseBody
+	@RequestMapping("/category/add")
+	public CategoryVo cateAdd(CategoryVo categoryVo) {
+		System.out.println("BlogController>cateAdd");
+		
+		CategoryVo cvo = blogService.cateInsert(categoryVo);
+		System.out.println(cvo);
+		
+		return cvo;
+		
+	}
+	
+	@RequestMapping("/{id}/admin/writeForm")
+	public String writeForm(@PathVariable String id, Model model) {
+		System.out.println("BlogController>writeForm");
+	
+		BlogVo blogVo = blogService.getBlogInfo(id);
+		model.addAttribute("blogVo", blogVo);
+		
+		List<CategoryVo> cateList = blogService.getCateList();
+		model.addAttribute("cateList", cateList);
+
+		return "blog/admin/blog-admin-write";
+	}
 
 }

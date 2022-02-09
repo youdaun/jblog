@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.BlogDao;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.CategoryVo;
 
 @Service
 public class BlogService {
@@ -19,11 +21,13 @@ public class BlogService {
 	@Autowired
 	private BlogDao blogDao;
 
+	//블로그 정보 가져오기
 	public BlogVo getBlogInfo(String id) {
 
 		return blogDao.getBlogInfo(id);
 	}
 
+	//블로그 기본설정 수정
 	public void updateBlogInfo(MultipartFile file, BlogVo blogVo) {
 		
 		if(file.isEmpty() == false) {
@@ -57,6 +61,21 @@ public class BlogService {
 
 		blogDao.updateBlogInfo(blogVo);
 		
+	}
+	
+	//카테고리 리스트 가져오기
+	public List<CategoryVo> getCateList(){
+		
+		return blogDao.getCateList();
+	}
+	
+	//카테고리 추가
+	public CategoryVo cateInsert(CategoryVo categoryVo) {
+		
+		blogDao.cateInsert(categoryVo);
+		int cateNo = categoryVo.getCateNo();
+		
+		return blogDao.getCate(cateNo);
 	}
 
 }
