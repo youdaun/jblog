@@ -25,27 +25,38 @@ public class BlogService {
 	}
 
 	public void updateBlogInfo(MultipartFile file, BlogVo blogVo) {
-		String saveDir = "C:\\javaStudy\\upload";
-
-		String exName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-		String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
-		String filePath = saveDir + "\\" + saveName;
-
-		// ***파일저장(업로드)
-		try {
-			byte[] fileData = file.getBytes();
-			OutputStream out = new FileOutputStream(filePath);
-			BufferedOutputStream bout = new BufferedOutputStream(out);
-
-			bout.write(fileData);
-			bout.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
-		blogVo.setLogoFile(saveName);
+		if(file.isEmpty() == false) {
+			
+			String saveDir = "C:\\javaStudy\\upload";
+
+			String exName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+			String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+			String filePath = saveDir + "\\" + saveName;
+
+			// ***파일저장(업로드)
+			try {
+				byte[] fileData = file.getBytes();
+				OutputStream out = new FileOutputStream(filePath);
+				BufferedOutputStream bout = new BufferedOutputStream(out);
+
+				bout.write(fileData);
+				bout.close();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			blogVo.setLogoFile(saveName);
+			
+		}else {			
+			BlogVo blogVo2 = getBlogInfo(blogVo.getId());
+			blogVo.setLogoFile(blogVo2.getLogoFile());
+
+		}
+
 		blogDao.updateBlogInfo(blogVo);
+		
 	}
 
 }

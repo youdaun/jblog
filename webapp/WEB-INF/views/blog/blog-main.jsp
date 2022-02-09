@@ -21,15 +21,7 @@
 			<div id="profilecate_area">
 				<div id="profile">
 					
-					<c:if test="${blogVo.logoFile == '기본이미지'}">
-						<!-- 기본이미지 -->
-						<img id="proImg" src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
-					</c:if>
-					
-					<c:if test="${blogVo.logoFile != '기본이미지'}">
-						<!-- 사용자업로드 이미지 -->
-					    <img id="proImg" src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}">
-					</c:if>				
+					<img id="proImg" src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}">
 					
 					<div id="nick">${authUser.userName}(${authUser.id}) 님</div>
 				</div>

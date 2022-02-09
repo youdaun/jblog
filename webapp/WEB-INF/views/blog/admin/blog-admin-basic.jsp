@@ -38,9 +38,13 @@
 			      		</tr>
 			      		<tr>
 			      			<td><label>로고이미지</label></td>
-			      			<c:if test="">
+			      			<c:if test="${blogVo.logoFile == '기본이미지'}">
+			      				<td class="text-left"><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td> 
 			      			</c:if>
-			      			<td class="text-left"><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>   
+			      			  
+			      			<c:if test="${blogVo.logoFile != '기본이미지'}">
+			      				<td class="text-left"><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}"></td>
+			      			</c:if>
 			      		</tr>      		
 			      		<tr>
 			      			<td>&nbsp;</td>

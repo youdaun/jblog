@@ -13,20 +13,10 @@ public class UserService {
 	private UserDao userDao;
 	
 	//회원가입
-	public String join(UserVo userVo) {
+	public void join(UserVo userVo) {
 		
-		String result;
-		
-		//아직 미구현
-		if(userVo.getId() == null) {
-			result = "f";
-		}else {
-			result = "s";
-			
-			userDao.insert(userVo);
-		}	
-		
-		return result;
+		userDao.insert(userVo);
+
 	}
 	
 	//로그인

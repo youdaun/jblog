@@ -29,7 +29,7 @@ public class BlogController {
 		return "blog/blog-main";
 	}
 	
-	@RequestMapping("/{id}/basic")
+	@RequestMapping("/{id}/admin/basic")
 	public String adminBasic(@PathVariable String id, Model model) {
 		System.out.println("BlogController>adminBasic");
 		
@@ -45,7 +45,15 @@ public class BlogController {
 		
 		blogService.updateBlogInfo(file, blogVo);
 		
-		return "rediect:/{id}/basic";
+		return "redirect:/"+id+"/admin/basic";
 	}
+	
+	@RequestMapping("/{id}/admin/category")
+	public String category() {
+		System.out.println("BlogController>category");
+		
+		return "blog/admin/blog-admin-cate";
+	}
+	
 
 }

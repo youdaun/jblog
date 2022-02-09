@@ -10,10 +10,10 @@
 		]]>
 	</insert>
 	
-	<insert id="join-blog" parameterType="com.javaex.vo.UserVo">
+	<insert id="join-blog" parameterType="com.javaex.vo.BlogVo">
 		<![CDATA[
 			insert into blog
-			values(#{id}, '의 블로그 입니다.', '기본이미지')
+			values(#{id}, #{blogTitle}, #{logoFile})
 		]]>
 	</insert>
 
