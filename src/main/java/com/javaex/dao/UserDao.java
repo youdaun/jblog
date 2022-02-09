@@ -14,7 +14,8 @@ public class UserDao {
 	
 	public void insert(UserVo userVo) {
 		
-		sqlsession.insert("jblog.join", userVo);
+		sqlsession.insert("jblog.join-users", userVo);
+		sqlsession.insert("jblog.join-blog", userVo);
 	}
 	
 	public UserVo selectLogin(UserVo userVo) {

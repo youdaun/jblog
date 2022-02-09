@@ -31,7 +31,7 @@ public class UserController {
 
 		userService.join(userVo);
 		
-		return "blog/blog-main";
+		return "main/index";
 	}
 	
 	//로그인폼
