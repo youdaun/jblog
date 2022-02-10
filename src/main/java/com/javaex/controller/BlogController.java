@@ -31,6 +31,9 @@ public class BlogController {
 		BlogVo blogVo = blogService.getBlogInfo(id);
 		model.addAttribute("blogVo", blogVo);
 		
+		List<CategoryVo> cateList = blogService.getCateList();
+		model.addAttribute("cateList", cateList);
+		
 		return "blog/blog-main";
 	}
 	
@@ -63,6 +66,7 @@ public class BlogController {
 		return "blog/admin/blog-admin-cate";
 	}
 	
+	//카테고리 리스트
 	@ResponseBody
 	@RequestMapping("/category/list")
 	public List<CategoryVo> cateList(Model model){
@@ -79,9 +83,19 @@ public class BlogController {
 		System.out.println("BlogController>cateAdd");
 		
 		CategoryVo cvo = blogService.cateInsert(categoryVo);
-		System.out.println(cvo);
 		
 		return cvo;
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("/category/delete")
+	public String cateDelete(int cateNo) {
+		System.out.println("BlogController>cateDelete");
+		
+		String result = blogService.cateDelete(cateNo);
+		
+		return result;
 		
 	}
 	

@@ -79,6 +79,26 @@ public class BlogService {
 		return blogDao.getCate(cateNo);
 	}
 	
+	//카테고리 삭제
+	public String cateDelete(int cateNo) {
+		
+		//포스트 값 받아야함
+		String result;
+		
+		CategoryVo cvo = blogDao.getCate(cateNo);
+		int postCnt = cvo.getPostCnt();
+		
+		if(postCnt == 0) {
+			blogDao.cateDelete(cateNo);
+			result = "s";
+		}else {
+			
+			result = "f";
+		}
+		
+		return result;
+	}
+	
 	//포스트 추가
 	public void postInsert(PostVo postVo) {
 		

@@ -129,6 +129,39 @@
 
 		
 	});
+	
+	//삭제버튼 눌렀을때
+	$("#cateList").on("click", ".btnCateDel", function(){
+		
+		var cateNo = $(this).data("no");
+		
+		$.ajax({
+
+			url : "${pageContext.request.contextPath}/category/delete",
+			type : "post",
+			//contentType : "application/json",
+			data : {cateNo: cateNo},
+
+			dataType : "json",
+			success : function(result) {
+				console.log(result);
+				
+				if(result === 's'){
+					/*성공시 처리해야될 코드 작성*/
+
+					//  해당 테이블 html 삭제
+					$("#cate"+cateNo).remove();	 
+					
+				}else {
+					alert("삭제할 수 없습니다.");
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+	});
 
 	//리스트 출력
 	function fetchList() {
@@ -142,7 +175,6 @@
 			dataType : "json",
 			success : function(cateList) {
 				/*성공시 처리해야될 코드 작성*/
-				console.log(cateList);
 
 				for (var i = 0; i < cateList.length; i++) {
 					render(cateList[i], "down"); //방명록리스트 그리기
@@ -157,16 +189,14 @@
 	//리스트 그리기
 	function render(categoryVo, updown) {
 		
-		console.log(categoryVo);
-		
 		var str = '';
-		str += '<tr>';
+		str += '<tr id="cate'+categoryVo.cateNo+'">';
 		str += '	<td>'+categoryVo.cateNo+'</td>';
 		str += '	<td>'+categoryVo.cateName+'</td>';
 		str += '	<td>'+categoryVo.postCnt+'</td>';
 		str += '	<td>'+categoryVo.description+'</td>';
 		str += '	<td class=' + 'text-center'+ '> ';
-		str += '	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">';
+		str += '	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg" data-no="'+categoryVo.cateNo+'" >';
 		str += '	</td>';
 		str += '</tr>';
  

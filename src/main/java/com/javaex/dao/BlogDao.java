@@ -29,7 +29,7 @@ public class BlogDao {
 	//카테고리 리스트
 	public List<CategoryVo> getCateList() {
 		
-		return sqlSession.selectList("jblog.select-cateList2");
+		return sqlSession.selectList("jblog.select-cateList");
 	}
 	
 	//카테고리 1개
@@ -43,6 +43,12 @@ public class BlogDao {
 		
 		sqlSession.insert("jblog.cate-insert", categoryVo);
 		
+	}
+	
+	//카테고리 삭제
+	public void cateDelete(int cateNo) {
+		
+		sqlSession.delete("jblog.delete-cate", cateNo);
 	}
 	
 	//포스트 추가
