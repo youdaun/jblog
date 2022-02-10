@@ -7,6 +7,7 @@ public class CategoryVo {
 	private String cateName;
 	private String description;
 	private String regDate;
+	private int postCnt;
 
 	public CategoryVo() {
 
@@ -56,6 +57,16 @@ public class CategoryVo {
 
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
+	}
+	
+	
+
+	public int getPostCnt() {
+		return postCnt;
+	}
+
+	public void setPostCnt(int postCnt) {
+		this.postCnt = postCnt;
 	}
 
 	@Override

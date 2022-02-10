@@ -105,7 +105,7 @@ public class BlogController {
 		System.out.println(postVo);
 		blogService.postInsert(postVo);
 		
-		return "";
+		return "redirect:/"+ id +"/admin/writeForm";
 	}
 
 }

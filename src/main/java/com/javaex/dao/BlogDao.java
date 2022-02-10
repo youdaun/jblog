@@ -29,7 +29,7 @@ public class BlogDao {
 	//카테고리 리스트
 	public List<CategoryVo> getCateList() {
 		
-		return sqlSession.selectList("jblog.select-cateList");
+		return sqlSession.selectList("jblog.select-cateList2");
 	}
 	
 	//카테고리 1개
