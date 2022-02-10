@@ -25,7 +25,7 @@
 			<!-- //admin-menu -->
 			
 			<div id="admin-content">
-				<form action="" method="">
+				<form action="${pageContext.request.contextPath}/${id}/admin/write" method="get">
 			      	<table id="admin-write">
 			      		<colgroup>
 							<col style="width: 100px;">
@@ -41,7 +41,7 @@
 				      			<select name="cateNo">
 				      				<!-- 카테고리 리스트 영역 -->
 				      				<c:forEach items="${cateList}" var="categoryVo">
-				      					<option value="">${categoryVo.cateName}</option>
+				      					<option name="cateNo" value="${categoryVo.cateNo}">${categoryVo.cateName}</option>
 				      				</c:forEach>
 				      			</select>
 				      		</td>

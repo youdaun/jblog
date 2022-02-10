@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javaex.dao.BlogDao;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.PostVo;
 
 @Service
 public class BlogService {
@@ -76,6 +77,12 @@ public class BlogService {
 		int cateNo = categoryVo.getCateNo();
 		
 		return blogDao.getCate(cateNo);
+	}
+	
+	//포스트 추가
+	public void postInsert(PostVo postVo) {
+		
+		blogDao.postInsert(postVo);;
 	}
 
 }

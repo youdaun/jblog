@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javaex.service.BlogService;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.PostVo;
 
 @Controller
 public class BlogController {
@@ -95,6 +96,16 @@ public class BlogController {
 		model.addAttribute("cateList", cateList);
 
 		return "blog/admin/blog-admin-write";
+	}
+	
+	@RequestMapping("/{id}/admin/write")
+	public String writePost(@PathVariable String id, PostVo postVo) {
+		System.out.println("BlogController>writePost");
+		
+		System.out.println(postVo);
+		blogService.postInsert(postVo);
+		
+		return "";
 	}
 
 }

@@ -27,6 +27,14 @@
 			insert into category
 			values(#{cateNo}, #{id}, #{cateName}, #{description}, sysdate)
 		]]>
+	
+	</insert>
+	
+	<insert id="post-insert" parameterType="com.javaex.vo.PostVo">
+		<![CDATA[
+			insert into post
+			values(seq_post_no.nextval, #{cateNo}, #{postTitle}, #{postContent}, sysdate)
+		]]>
 	</insert>
 
 	<select id="login" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">

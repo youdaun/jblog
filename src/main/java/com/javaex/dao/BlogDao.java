@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.PostVo;
 
 @Repository
 public class BlogDao {
@@ -42,6 +43,12 @@ public class BlogDao {
 		
 		sqlSession.insert("jblog.cate-insert", categoryVo);
 		
+	}
+	
+	//포스트 추가
+	public void postInsert(PostVo postVo) {
+		
+		sqlSession.insert("jblog.post-insert", postVo);
 	}
 
 }
