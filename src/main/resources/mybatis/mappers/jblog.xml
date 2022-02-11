@@ -65,7 +65,7 @@
                 		    co.cateNo,
                      		cateName,
                 			description,
-                			c.regDate
+                			to_char(c.regDate, 'yyyy-mm-dd') regDate
 			from category c, (select count(postNo) postCnt,
                                  	 cateNo
                               from (select c.cateNo,
@@ -96,6 +96,32 @@
                           	  group by cateNo) co
 			where c.cateNo = co.cateNo
 			and  co.cateNo = #{cateNo}
+		]]>
+	</select>
+	
+	<!-- 포스트 리스트 -->
+	<select id="select-postList" parameterType="int" resultType="com.javaex.vo.PostVo">
+		<![CDATA[
+			select postNo,
+       			   cateNo,
+             	   postTitle,
+       			   postcontent,
+       			   to_char(regDate, 'yyyy/mm/dd') regDate
+			from post
+			where cateNo = #{cateNo}
+		]]>
+	</select>
+	
+	<!-- 포스트 1개 -->
+	<select id="select-post" parameterType="int" resultType="com.javaex.vo.PostVo">
+		<![CDATA[
+			select postNo,
+       			   cateNo,
+             	   postTitle,
+       			   postcontent,
+       			   to_char(regDate, 'yyyy/mm/dd') regDate
+			from post
+			where postNo = #{postNo}
 		]]>
 	</select>
 	

@@ -25,15 +25,36 @@ public class BlogController {
 	private BlogService blogService;
 	
 	@RequestMapping("/{id}")
-	public String blogMain(@PathVariable String id, HttpSession session, Model model) {
+	public String blogMain(@PathVariable String id, Model model, @RequestParam("cateNo") int cateNo, @RequestParam("postNo") int postNo) {
 		System.out.println("BlogController>blogMain");
-		
+
 		BlogVo blogVo = blogService.getBlogInfo(id);
 		model.addAttribute("blogVo", blogVo);
 		
 		List<CategoryVo> cateList = blogService.getCateList();
 		model.addAttribute("cateList", cateList);
 		
+		if(cateNo == 0) {
+			cateNo = cateList.get(0).getCateNo();
+		}
+		
+		List<PostVo> postList = blogService.postList(cateNo);
+		model.addAttribute("postList", postList);
+		
+		if(postNo == 0 && postList.size() != 0) {
+			postNo = postList.get(0).getPostNo();
+			
+			PostVo postVo = blogService.getPost(postNo);
+			model.addAttribute("postVo", postVo);
+			
+		}else if(postNo != 0) {
+			
+			PostVo postVo = blogService.getPost(postNo);
+			model.addAttribute("postVo", postVo);
+		}else {
+			System.out.println("포스트 없음");
+		}
+	
 		return "blog/blog-main";
 	}
 	
@@ -77,6 +98,7 @@ public class BlogController {
 		return cateList;
 	}
 
+	//카테고리 추가
 	@ResponseBody
 	@RequestMapping("/category/add")
 	public CategoryVo cateAdd(CategoryVo categoryVo) {
@@ -88,6 +110,7 @@ public class BlogController {
 		
 	}
 	
+	//카테고리 삭제
 	@ResponseBody
 	@RequestMapping("/category/delete")
 	public String cateDelete(int cateNo) {

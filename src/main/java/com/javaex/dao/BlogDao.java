@@ -56,5 +56,18 @@ public class BlogDao {
 		
 		sqlSession.insert("jblog.post-insert", postVo);
 	}
+	
+	//포스트 리스트 
+	public List<PostVo> postList(int cateNo) {
+		
+		return sqlSession.selectList("jblog.select-postList", cateNo);
+	}
+	
+	//포스트 한개
+	public PostVo getPost(int postNo) {
+		
+		return sqlSession.selectOne("jblog.select-post", postNo);
+		
+	}
 
 }
