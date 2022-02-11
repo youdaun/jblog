@@ -3,7 +3,7 @@
 
 <div id="header" class="clearfix">
 	<h1>
-		<a href="${pageContext.request.contextPath}/${id}">${blogVo.blogTitle}</a>
+		<a href="${pageContext.request.contextPath}/${authUser.id}?cateNo=0&postNo=0">${blogVo.blogTitle}</a>
 	</h1>
 
 	

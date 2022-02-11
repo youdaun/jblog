@@ -166,11 +166,13 @@
 	//리스트 출력
 	function fetchList() {
 		
+		var id = $("#cateId").val();
+		
 		$.ajax({
 			url : "${pageContext.request.contextPath}/category/list",
 			type : "post",
 			//contentType : "application/json",
-			//data : {name: "홍길동"},
+			data : {id: id},
 
 			dataType : "json",
 			success : function(cateList) {

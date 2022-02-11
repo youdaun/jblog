@@ -2,8 +2,6 @@ package com.javaex.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +29,7 @@ public class BlogController {
 		BlogVo blogVo = blogService.getBlogInfo(id);
 		model.addAttribute("blogVo", blogVo);
 		
-		List<CategoryVo> cateList = blogService.getCateList();
+		List<CategoryVo> cateList = blogService.getCateList(id);
 		model.addAttribute("cateList", cateList);
 		
 		if(cateNo == 0) {
@@ -90,10 +88,10 @@ public class BlogController {
 	//카테고리 리스트
 	@ResponseBody
 	@RequestMapping("/category/list")
-	public List<CategoryVo> cateList(Model model){
+	public List<CategoryVo> cateList(Model model, String id){
 		System.out.println("BlogController>cateList");
 		
-		List<CategoryVo> cateList = blogService.getCateList();
+		List<CategoryVo> cateList = blogService.getCateList(id);
 		
 		return cateList;
 	}
@@ -129,7 +127,7 @@ public class BlogController {
 		BlogVo blogVo = blogService.getBlogInfo(id);
 		model.addAttribute("blogVo", blogVo);
 		
-		List<CategoryVo> cateList = blogService.getCateList();
+		List<CategoryVo> cateList = blogService.getCateList(id);
 		model.addAttribute("cateList", cateList);
 
 		return "blog/admin/blog-admin-write";

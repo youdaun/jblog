@@ -51,14 +51,17 @@
 	<select id="select-blog" parameterType="String" resultType="com.javaex.vo.BlogVo">
 		<![CDATA[
 			select 	blogTitle,
-					logoFile
-			from    blog
-			where   id = #{id}
+					logoFile,
+					u.id,
+					u.userName
+			from    blog b, users u
+			where   b.id = u.id
+			and		u.id = #{id}
 		]]>
 	</select>
 	
 	<!-- 카테고리 리스트 -->
-	<select id="select-cateList" resultType="com.javaex.vo.CategoryVo">
+	<select id="select-cateList" parameterType="String" resultType="com.javaex.vo.CategoryVo">
 		<![CDATA[
 			select          co.postCnt,
 							c.id,
@@ -74,6 +77,7 @@
                                     where c.cateNo = p.cateNo(+))
                           	  group by cateNo) co
 			where c.cateNo = co.cateNo
+			and c.id = #{id}
 			order by co.cateNo asc
 		]]>
 	</select>
@@ -109,6 +113,7 @@
        			   to_char(regDate, 'yyyy/mm/dd') regDate
 			from post
 			where cateNo = #{cateNo}
+			order by regDate desc
 		]]>
 	</select>
 	

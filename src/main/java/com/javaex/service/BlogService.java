@@ -65,9 +65,9 @@ public class BlogService {
 	}
 
 	// 카테고리 리스트 가져오기
-	public List<CategoryVo> getCateList() {
+	public List<CategoryVo> getCateList(String id) {
 
-		return blogDao.getCateList();
+		return blogDao.getCateList(id);
 	}
 
 	// 카테고리 추가

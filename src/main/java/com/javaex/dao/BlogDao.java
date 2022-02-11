@@ -27,9 +27,9 @@ public class BlogDao {
 	}
 	
 	//카테고리 리스트
-	public List<CategoryVo> getCateList() {
+	public List<CategoryVo> getCateList(String id) {
 		
-		return sqlSession.selectList("jblog.select-cateList");
+		return sqlSession.selectList("jblog.select-cateList", id);
 	}
 	
 	//카테고리 1개

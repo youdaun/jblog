@@ -23,7 +23,7 @@
 					
 					<img id="proImg" src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}">
 					
-					<div id="nick">${authUser.userName}(${authUser.id}) 님</div>
+					<div id="nick">${blogVo.userName}(${blogVo.id}) 님</div>
 				</div>
 				<div id="cate">
 					<div class="text-left">
@@ -45,7 +45,7 @@
 					<div id="postBox" class="clearfix">
 						<div id="postTitle" class="text-left"><strong>${postVo.postTitle}</strong></div>
 						<div id="postDate" class="text-left"><strong>${postVo.regDate}</strong></div>
-						<div id="postNick">${authUser.userName}(${authUser.id})님</div>
+						<div id="postNick">${blogVo.userName}(${blogVo.id})님</div>
 					</div>
 					<!-- //postBox -->	
 					<div id="post" >
@@ -75,7 +75,7 @@
 						
 						<c:forEach items="${postList}" var="postVo">
 							<tr>
-								<td class="text-left"><a href="${pageContext.request.contextPath}/${authUser.id}?cateNo=${postVo.cateNo}&postNo=${postVo.postNo}">${postVo.postTitle}</a></td>
+								<td class="text-left"><a href="${pageContext.request.contextPath}/${id}?cateNo=${postVo.cateNo}&postNo=${postVo.postNo}">${postVo.postTitle}</a></td>
 								<td class="text-right">${postVo.regDate}</td>
 							</tr>
 						</c:forEach>
