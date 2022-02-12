@@ -1,5 +1,7 @@
 package com.javaex.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,6 +33,14 @@ public class UserDao {
 		UserVo authUser = sqlsession.selectOne("jblog.login", userVo);
 		
 		return authUser;
+	}
+	
+	//아이디 중복체크
+	public List<UserVo> getIdCheck() {
+		
+		List<UserVo> userList = sqlsession.selectList("jblog.idCheck");
+		
+		return userList;
 	}
 
 }

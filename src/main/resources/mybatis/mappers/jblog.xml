@@ -37,6 +37,7 @@
 		]]>
 	</insert>
 
+	<!-- 로그인 -->
 	<select id="login" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
 			select 	userNo,
@@ -45,6 +46,14 @@
 			from users
 			where id = #{id}
 			and password = #{password}
+		]]>
+	</select>
+	
+	<!-- 아이디 중복체크때 사용할 유저 정보 -->
+	<select id="idCheck" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select id
+			from users
 		]]>
 	</select>
 	

@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>JBlog</title>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
 
 </head>
 <body>
@@ -67,8 +69,38 @@
 
 <script type="text/javascript">
 
+	/* 아이디체크버튼 눌렀을때 */
+	$("#btnIdCheck").on("click", function(){
+		console.log("클릭");
+		var id = $("#txtId").val();
+		
+		$.ajax({
 
-</script>
+			url : "${pageContext.request.contextPath}/user/idCheck",
+			type : "post",
+			//contentType : "application/json",
+			data : {id: id},
+
+			//dataType : "json",
+			success : function(result) {
+				console.log(result);
+				
+				if(result == 's'){
+					/*성공시 처리해야될 코드 작성*/
+					alert("사용가능한 아이디 입니다.");
+					var id = $("#txtId").val("");
+					
+				}else {
+					alert("사용할 수 없는 아이디 입니다.");
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+
+	</script>
 
 
 </html>
